@@ -2,17 +2,15 @@ import React from 'react';
 import classes from './Profile.module.css';
 import lpanoramaogo from '../../img/panorama.jpeg';
 import MyPosts from './my-posts/MyPosts';
+import ProfileInfo from './profile-info/ProfileInfo';
 
 
 
-const  Profile = () => {
+const  Profile = ({state, addPost}) => {
   return (
     <div >
-        <div>
-           <img src={lpanoramaogo}></img>
-        </div>
-        <div>ava</div>
-       <MyPosts />
+        <ProfileInfo/>
+        <MyPosts posts={state.posts} addPost={addPost}/>
       </div>
   
   );
