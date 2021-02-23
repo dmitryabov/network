@@ -3,13 +3,13 @@ import classes from './Post.module.css';
 import ava from '../../../../img/ava.png';
 
 
-const  Post = () => {
+const  Post = ({message, likesCount}) => {
   return ( 
            <div className={classes.post}>
               <img src={ava}></img>
-              post 1
+              {message}
               <div>
-              <span>like</span>
+              <span>like {likesCount}</span>
               </div>
             </div>
   );

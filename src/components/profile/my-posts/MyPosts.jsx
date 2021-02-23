@@ -1,22 +1,36 @@
 import React from 'react';
 import classes from './MyPosts.module.css';
-import ava from '../../../img/ava.png';
 import Post from './post/Post';
 
 
-const  MyPosts = () => {
+const  MyPosts = ({posts, addPost}) => {
+  
+  const postsElements = posts.map((elem, i) => {
+    return (
+      <Post message={elem.message} likesCount={elem.likesCount} key={elem.id + i}/>
+    ) 
+   })
+
+   const newPostElement = React.createRef();
+   const addNewPost = () => {
+     let text = newPostElement.current.value;
+     addPost(text)
+   }
+
+
   return ( 
-        <div>
-          My posts
+        <div className={classes.postsBlock}>
+          <h3>My posts</h3>
           <div>
+            <div>
             <textarea></textarea>
-            <button>add post</button>
+            </div>
+           <div>
+           <button ref={newPostElement} onClick={addNewPost}>add post</button>
+           </div>
           </div>
-          <div>
-            <Post/>
-            <Post/>
-            <Post/>
-            <Post/>
+          <div className={classes.posts}>
+            {postsElements}
           </div>
         </div>
   );
