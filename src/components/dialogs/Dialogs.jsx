@@ -1,12 +1,12 @@
 import React from 'react';
+import {sendMessageActionCreator, updateMessageActionCreator} from '../../redux/state';
 import classes from'./Dialogs.module.css';
 import DialogsItem from './dialogsItem/DialogsItem';
 import Message from './messages/Message';
 
 
-const  Dialogs = ({state}) => {
+const  Dialogs = ({state, dispatch}) => {
   const {dialogs, messages} = state
-   
 
   const dialogsElements = dialogs.map((elem, i) => {
    return (
@@ -21,6 +21,16 @@ const  Dialogs = ({state}) => {
     ) 
    })
 
+   const newMessageElement = React.createRef();
+   const addNewMessage = () => {
+    dispatch(sendMessageActionCreator())
+   }
+
+   const updatePostText = () => {
+    let text = newMessageElement.current.value;
+    dispatch(updateMessageActionCreator(text))
+  }
+
 
   return (
       <div className={classes.dialogs}>
@@ -28,7 +38,11 @@ const  Dialogs = ({state}) => {
            {dialogsElements}
         </div>
         <div className={classes.messages}>
-           {messagesElements}
+         <div>{messagesElements}</div>  
+         <div>
+           <div><textarea placeholder="Enter your message" ref={newMessageElement} onChange={updatePostText}></textarea></div>
+           <div><button onClick={addNewMessage}>send</button></div>
+         </div>
         </div>
       </div>
   

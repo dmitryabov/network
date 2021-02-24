@@ -6,11 +6,11 @@ import ProfileInfo from './profile-info/ProfileInfo';
 
 
 
-const  Profile = ({state, addPost}) => {
+const  Profile = ({state,dispatch}) => {
   return (
     <div >
         <ProfileInfo/>
-        <MyPosts posts={state.posts} addPost={addPost}/>
+        <MyPosts posts={state.posts}  newPostText={state.newPostText} dispatch={dispatch}/>
       </div>
   
   );

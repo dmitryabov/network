@@ -6,25 +6,32 @@ import classes from'./Navbar.module.css';
 const  Navbar = () => {
   return (
       <nav className={classes.nav}>
-          <div className={`${classes.item} + ${classes.active}`}>
-            <NavLink to='/profile' className={classes.item} activeClassName={classes.active}>
+          <div className={`${classes.item}`}>
+            <NavLink to='/profile' className={`${classes.itemLink}`} activeClassName={classes.active}>
               Profile
             </NavLink>
           </div>
           <div className={classes.item}>
-            <NavLink to='/dialogs'  activeClassName={classes.active}>
+            <NavLink to='/dialogs' className={`${classes.itemLink}`} activeClassName={classes.active}>
               Messages
             </NavLink>
           </div>
           <div className={classes.item}>
-            <a>News</a>
+            <NavLink to='/news' className={`${classes.itemLink}`} activeClassName={classes.active}>
+            News
+            </NavLink>
           </div>
           <div className={classes.item}>
-            <a>Music</a>
+            <NavLink to='/music' className={`${classes.itemLink}`} activeClassName={classes.active}>
+            Music
+            </NavLink>
           </div>
           <div className={classes.item}>
-            <a>Settings</a>
+            <NavLink to='/settings' className={`${classes.itemLink}`} activeClassName={classes.active}>
+            Settings
+            </NavLink>
           </div>
+
       </nav>
   
   );
