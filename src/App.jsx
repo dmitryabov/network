@@ -6,7 +6,7 @@ import Header from './components/header/Header';
 import Navbar from './components/navbar/Navbar';
 import Profile from './components/profile/Profile';
 
-function App({state, addPost}) {
+function App({state, dispatch}) {
 
   return (
     <BrowserRouter>
@@ -14,8 +14,8 @@ function App({state, addPost}) {
       <Header/>
       <Navbar/>
       <div className='app-wrapper-content'>
-        <Route path='/profile' render={() =>  <Profile state={state.profilePage} addPost={addPost}/>} />
-        <Route path='/dialogs' render={() =>  <Dialogs state={state.messagePage}/>}/>
+        <Route path='/profile' render={() =>  <Profile state={state.profilePage} dispatch={dispatch}/>} />
+        <Route path='/dialogs' render={() =>  <Dialogs state={state.messagePage} dispatch={dispatch}/>}/>
       </div>
     </div>
     </BrowserRouter>
