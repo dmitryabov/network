@@ -3,14 +3,15 @@ import classes from './Profile.module.css';
 import lpanoramaogo from '../../img/panorama.jpeg';
 import MyPosts from './my-posts/MyPosts';
 import ProfileInfo from './profile-info/ProfileInfo';
+import MyPostsContainer from './my-posts/MyPostsContainer';
 
 
 
-const  Profile = ({state,dispatch}) => {
+const  Profile = () => {
   return (
     <div >
         <ProfileInfo/>
-        <MyPosts posts={state.posts}  newPostText={state.newPostText} dispatch={dispatch}/>
+        <MyPostsContainer />
       </div>
   
   );

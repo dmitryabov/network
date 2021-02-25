@@ -1,12 +1,12 @@
 import React from 'react';
-import {sendMessageActionCreator, updateMessageActionCreator} from '../../redux/state';
 import classes from'./Dialogs.module.css';
 import DialogsItem from './dialogsItem/DialogsItem';
 import Message from './messages/Message';
 
 
-const  Dialogs = ({state, dispatch}) => {
-  const {dialogs, messages} = state
+const  Dialogs = ({dialogs, messages, sendMessageActionCreator, updateMessageActionCreator}) => {
+
+
 
   const dialogsElements = dialogs.map((elem, i) => {
    return (
@@ -22,13 +22,14 @@ const  Dialogs = ({state, dispatch}) => {
    })
 
    const newMessageElement = React.createRef();
+
    const addNewMessage = () => {
-    dispatch(sendMessageActionCreator())
+    sendMessageActionCreator()
    }
 
    const updatePostText = () => {
     let text = newMessageElement.current.value;
-    dispatch(updateMessageActionCreator(text))
+    updateMessageActionCreator(text)
   }
 
 
