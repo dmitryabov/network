@@ -1,65 +1,61 @@
 import React from 'react';
 import styles from './Users.module.css'
+import avatar from '../../img/avatar.jpeg';
+
 
 
 const Users = (props) => {
+    let pagesCount = Math.ceil( props.totalUsersCount/ props.pageSize)
 
-    if(props.users.length === 0){
-        props.setUsers(
-            [{
-                id: 1,
-                message: 'good',
-                likesCount: 12,
-              },
-              {
-                id: 2,
-                message: 'yup',
-                likesCount: 11,
-              },]
-        )
+    const pages = []
+
+    for(let i = 1; i <= pagesCount; i ++){
+        pages.push(i)
     }
-
-
-    
     return (
         <div>
-            {
-                props.users.map(user => <div key={user.id}>
+            <div>
+                {pages.map((page) => {
+                  return <span className={props.currentPage === page ? styles.selectedPage : ''} key={page} onClick={() => {
+                      props.onPageChanged(page)
+                  }}>{page}</span>
+                })}
+                
+            </div>
+        
+        {
+            props.users.map(user => <div key={user.id }>
+                <span>
+                    <div>
+                        <img src={user.photos.small !== null ? user.photos.small : avatar} className={styles.ava}></img>
+                    </div>
+                    <div>
+                        {user.followed ? <button onClick={ () => {
+                            props.unfollow(user.id)
+                        }}>unfollow</button> : <button onClick={() => {
+                            props.follow(user.id)
+                        }}>follow</button>}
+                       
+                    </div>
+                </span>
+                <span>
                     <span>
                         <div>
-                            <img></img>
+                            <span>
+                            {user.name}
+                            {user.status}
+                            </span>
+                            
                         </div>
                         <div>
-                            {user.followed ? <button onClick={ () => {
-                                props.unfollow(user.id)
-                            }}>unfollow</button> : <button onClick={() => {
-                                props.follow(user.id)
-                            }}>follow</button>}
-                           
+                            {user.status}
                         </div>
                     </span>
-                    <span>
-                        <span>
-                            <div>
-                                {user.fullName}
-                            </div>
-                            <div>
-                                {user.status}
-                            </div>
-                        </span>
-                        <span>
-                            <div>
-                                {user.location.city}
-                            </div>
-                            <div>
-                                {user.location.country}
-                            </div>
-                        </span>
-                    </span>
-                </div>)
-            }
-        </div>
-    )
+                </span>
+            </div>)
+        }
+    </div>
+          )
 }
 
 export default Users;

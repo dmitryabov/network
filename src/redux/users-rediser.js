@@ -1,27 +1,16 @@
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
+const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
+const SET_TOTAL_PAGE_COUNT = 'SET_TOTAL_PAGE_COUN';
+const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 
 const initialState = {
-  users: [
-    {
-      id: 1,
-      userAva: '',
-      followed: false,
-      fullName: 'Dima',
-      status: 'Good',
-      location: { city: 'Minsk', country: 'Belarus' },
-    },
-    {
-      id: 2,
-      userAva: '',
-      followed: true,
-      fullName: 'Masha',
-      status: 'Good',
-      location: { city: 'Minsk', country: 'Belarus' },
-    },
-  ],
-  newPostText: 'add text',
+  users: [],
+  pageSize: 5,
+  totalUsersCount: 0,
+  currentPage: 1,
+  isFetching: false,
 };
 
 const usersReduser = (state = initialState, action) => {
@@ -51,7 +40,24 @@ const usersReduser = (state = initialState, action) => {
     case SET_USERS:
       return {
         ...state,
-        users: [...state.users, ...action.payload],
+        users: [...action.payload],
+      };
+
+    case SET_CURRENT_PAGE:
+      return {
+        ...state,
+        currentPage: action.payload,
+      };
+
+    case SET_TOTAL_PAGE_COUNT:
+      return {
+        ...state,
+        totalUsersCount: action.payload,
+      };
+    case TOGGLE_IS_FETCHING:
+      return {
+        ...state,
+        isFetching: action.payload,
       };
 
     default:
@@ -59,23 +65,44 @@ const usersReduser = (state = initialState, action) => {
   }
 };
 
-export const followActionCreator = (userId) => {
+export const follow = (userId) => {
   return {
     type: FOLLOW,
     payload: userId,
   };
 };
-export const unfollowActionCreator = (userId) => {
+export const unfollow = (userId) => {
   return {
     type: UNFOLLOW,
     payload: userId,
   };
 };
 
-export const setUsersActionCreator = (users) => {
+export const setUsers = (users) => {
   return {
     type: SET_USERS,
     payload: users,
+  };
+};
+
+export const setCurrentPage = (currentPage) => {
+  return {
+    type: SET_CURRENT_PAGE,
+    payload: currentPage,
+  };
+};
+
+export const setTotalUsersCounPage = (totalUsersCount) => {
+  return {
+    type: SET_TOTAL_PAGE_COUNT,
+    payload: totalUsersCount,
+  };
+};
+
+export const setToggleFetching = (isFetching) => {
+  return {
+    type: TOGGLE_IS_FETCHING,
+    payload: isFetching,
   };
 };
 
