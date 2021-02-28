@@ -1,8 +1,14 @@
 .header {
     grid-area: header;
-    background-color: #2980b9;;
+    background-color: #2980b9;
+    display: flex;
+    justify-content: space-between;
   }
 
   .logo {
       height: 30px;
+  }
+
+  .loginBlock a{
+      color: white;
   }
