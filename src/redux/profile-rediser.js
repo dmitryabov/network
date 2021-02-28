@@ -1,9 +1,11 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_TEXT = 'UPDATE-NEW-TEXT';
+const SET_USERS_PROFILE = 'SET_USERS_PROFILE';
 
 const initialState = {
   posts: [],
   newPostText: 'add text',
+  profile: null,
 };
 
 const profileReduser = (state = initialState, action) => {
@@ -20,6 +22,9 @@ const profileReduser = (state = initialState, action) => {
     case UPDATE_NEW_TEXT:
       return { ...state, newPostText: action.payload };
 
+    case SET_USERS_PROFILE:
+      return { ...state, profile: action.payload };
+
     default:
       return state;
   }
@@ -34,6 +39,13 @@ export const updateNewTextActionCreator = (text) => {
   return {
     type: UPDATE_NEW_TEXT,
     payload: text,
+  };
+};
+
+export const setUserProfile = (profile) => {
+  return {
+    type: SET_USERS_PROFILE,
+    payload: profile,
   };
 };
 

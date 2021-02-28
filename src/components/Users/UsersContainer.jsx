@@ -11,7 +11,7 @@ class UsersApiContainer extends React.Component {
 
   componentDidMount() {
     this.props.setToggleFetching(true)
-      axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+      axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {withCredentials: true}).then(response => {
         this.props.setToggleFetching(false)
           this.props.setUsers(
               response.data.items
@@ -26,7 +26,9 @@ class UsersApiContainer extends React.Component {
   onPageChanged = (page) => {
     this.props.setToggleFetching(true)
       this.props.setCurrentPage(page);
-      axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`).then(response => {
+      axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`,
+      {withCredentials: true}
+      ).then(response => {
         this.props.setToggleFetching(false)
           this.props.setUsers(
               response.data.items
@@ -61,29 +63,6 @@ const mapStateToProps  = (state) => {
     isFetching: state.usersPage.isFetching,
   }
 }
-
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     follow: (userId) => {
-//      dispatch(followActionCreator(userId))
-//     },
-//     unfollow: (userId) => {
-//         dispatch(unfollowActionCreator(userId))
-//     },
-//     setUsers: (users) => {
-//         dispatch(setUsersActionCreator(users))
-//       },
-//       setCurrentPage: (currentPage) => {
-//         dispatch(setCurrentPageActionCreator(currentPage))
-//       },
-//       setTotalUsersCounPage: (totalUsersCoun) => {
-//         dispatch(setTotalUsersCountActionCreator(totalUsersCoun))
-//       },
-//       setToggleFetching: (totalUsersCoun) => {
-//         dispatch(toggleFetchingActionCreator(totalUsersCoun))
-//       },
-//   }
-// }
 
 
 const UsersContainer = connect(mapStateToProps, {

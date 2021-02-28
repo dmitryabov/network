@@ -1,16 +1,13 @@
 import React from 'react';
-import classes from './Profile.module.css';
-import lpanoramaogo from '../../img/panorama.jpeg';
-import MyPosts from './my-posts/MyPosts';
 import ProfileInfo from './profile-info/ProfileInfo';
 import MyPostsContainer from './my-posts/MyPostsContainer';
 
 
 
-const  Profile = () => {
+const  Profile = (props) => {
   return (
     <div >
-        <ProfileInfo/>
+        <ProfileInfo profile={props.profile}/>
         <MyPostsContainer />
       </div>
   
