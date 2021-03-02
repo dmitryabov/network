@@ -4,7 +4,7 @@ import DialogsItem from './dialogsItem/DialogsItem';
 import Message from './messages/Message';
 
 
-const  Dialogs = ({dialogs, messages, sendMessageActionCreator, updateMessageActionCreator}) => {
+const  Dialogs = ({dialogs, messages, sendMessageActionCreator, updateMessageActionCreator, isAuth}) => {
 
 
 
@@ -31,7 +31,6 @@ const  Dialogs = ({dialogs, messages, sendMessageActionCreator, updateMessageAct
     let text = newMessageElement.current.value;
     updateMessageActionCreator(text)
   }
-
 
   return (
       <div className={classes.dialogs}>

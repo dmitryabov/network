@@ -1,3 +1,6 @@
+import { usersAPI } from '../api/api';
+import { setToggleFetching } from './users-rediser';
+
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_TEXT = 'UPDATE-NEW-TEXT';
 const SET_USERS_PROFILE = 'SET_USERS_PROFILE';
@@ -46,6 +49,15 @@ export const setUserProfile = (profile) => {
   return {
     type: SET_USERS_PROFILE,
     payload: profile,
+  };
+};
+
+export const getProfileThunkCreator = (userId) => {
+  return (dispatch) => {
+    dispatch(setToggleFetching(true));
+    usersAPI.getProfile(userId).then((data) => {
+      dispatch(setUserProfile(data));
+    });
   };
 };
 
