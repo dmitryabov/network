@@ -1,10 +1,10 @@
-import axios from 'axios';
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { setUserProfile } from '../../redux/profile-rediser';
-import { setToggleFetching } from '../../redux/users-rediser';
+import { getProfileThunkCreator } from '../../redux/profile-rediser';
 import Profile from './Profile';
+import { Redirect } from 'react-router-dom';
+import withAuthRedirect from '../hoc/withAuthRedirect';
 
 
 
@@ -16,10 +16,7 @@ class  ProfileContainer extends React.Component {
             userId = 2
         }
  
-        this.props.setToggleFetching(true)
-          axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`).then(response => {
-            this.props.setUserProfile(response.data)
-          })
+        this.props.getProfileThunkCreator(userId)
       }
 
         render() {
@@ -33,16 +30,27 @@ class  ProfileContainer extends React.Component {
 
 const mapStateToProps  = (state) => {
     return {
-      profile: state.profilePage.profile
-      
+      profile: state.profilePage.profile,
     }
+ }
+
+
+
+
+let AuthRedirectComponent = withAuthRedirect(ProfileContainer)
+
+const mapStateToPropsForRedirect  = (state) => {
+  return {
+    isAuth: state.auth.isAuth,
   }
+}
+
+AuthRedirectComponent= connect(mapStateToPropsForRedirect)(AuthRedirectComponent)
 
 
-const WithUrlDataContainerComponent = withRouter(ProfileContainer)
+const WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)
 
 export default connect(mapStateToProps, {
-    setUserProfile,
-    setToggleFetching
+    getProfileThunkCreator,
     
   })(WithUrlDataContainerComponent); 

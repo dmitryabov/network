@@ -3,6 +3,7 @@ import styles from './Users.module.css'
 import avatar from '../../img/avatar.jpeg';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
+import { usersAPI } from '../../api/api';
 
 
 
@@ -35,31 +36,12 @@ const Users = (props) => {
                         
                     </div>
                     <div>
-                        {user.followed ? <button onClick={ () => {
-                           axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`,  
-                           { withCredentials: true,
-                            headers: {
-                                'API-KEY': 'bd6c9166-2d50-4ff5-9c62-4bb8bc448a98'
-                            }
-                        }).then(response => {
-                            if(response.data.resultCode == 0) {
-                                props.unfollow(user.id)
-                            }
-                        })
+                        {user.followed ? <button disabled={props.isFollowingInProgress.some(id => id === user.id)} onClick={ () => {
+                            props.followThunkCreator(user.id)
+                            
                         }}>unfollow</button> :
-                         <button onClick={() => {
-                            axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${user.id}`, 
-                            {}, 
-                            {
-                                withCredentials: true,
-                                headers: {
-                                    'API-KEY': 'bd6c9166-2d50-4ff5-9c62-4bb8bc448a98'
-                                }
-                            }).then(response => {
-                                if(response.data.resultCode == 0) {
-                                    props.follow(user.id)
-                                }
-                            })
+                         <button disabled={props.isFollowingInProgress.some(id => id === user.id)} onClick={() => {
+                            props.unfollowThunkCreator(user.id)
                         }}>follow</button>}
                        
                     </div>
