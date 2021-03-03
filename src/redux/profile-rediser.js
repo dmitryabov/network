@@ -1,14 +1,15 @@
-import { usersAPI } from '../api/api';
+import { profileAPI, usersAPI } from '../api/api';
 import { setToggleFetching } from './users-rediser';
 
 const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_TEXT = 'UPDATE-NEW-TEXT';
 const SET_USERS_PROFILE = 'SET_USERS_PROFILE';
+const SET_STATUS = 'SET_STATUS';
 
 const initialState = {
   posts: [],
   newPostText: 'add text',
   profile: null,
+  status: '',
 };
 
 const profileReduser = (state = initialState, action) => {
@@ -16,32 +17,26 @@ const profileReduser = (state = initialState, action) => {
     case ADD_POST:
       const newPost = {
         id: 4,
-        message: state.newPostText,
+        message: action.payload,
         likesCount: 0,
       };
-
       return { ...state, posts: [...state.posts, newPost], newPostText: '' };
-
-    case UPDATE_NEW_TEXT:
-      return { ...state, newPostText: action.payload };
 
     case SET_USERS_PROFILE:
       return { ...state, profile: action.payload };
+
+    case SET_STATUS:
+      return { ...state, status: action.payload };
 
     default:
       return state;
   }
 };
 
-export const addPostActionCreator = () => {
+export const addPostActionCreator = (newPostText) => {
   return {
     type: ADD_POST,
-  };
-};
-export const updateNewTextActionCreator = (text) => {
-  return {
-    type: UPDATE_NEW_TEXT,
-    payload: text,
+    payload: newPostText,
   };
 };
 
@@ -52,11 +47,37 @@ export const setUserProfile = (profile) => {
   };
 };
 
+export const setUserProfileStatus = (status) => {
+  return {
+    type: SET_STATUS,
+    payload: status,
+  };
+};
+
 export const getProfileThunkCreator = (userId) => {
   return (dispatch) => {
     dispatch(setToggleFetching(true));
     usersAPI.getProfile(userId).then((data) => {
       dispatch(setUserProfile(data));
+    });
+  };
+};
+
+export const getStatusThunkCreator = (userId) => {
+  return (dispatch) => {
+    dispatch(setToggleFetching(true));
+    profileAPI.getStatus(userId).then((data) => {
+      dispatch(setUserProfileStatus(data));
+    });
+  };
+};
+
+export const updateStatusThunkCreator = (status) => {
+  return (dispatch) => {
+    profileAPI.updateStatus(status).then((response) => {
+      if (response.data.resultCode === 0) {
+        dispatch(setUserProfileStatus(status));
+      }
     });
   };
 };
