@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { getProfileThunkCreator } from '../../redux/profile-rediser';
+import { getProfileThunkCreator, getStatusThunkCreator, updateStatusThunkCreator } from '../../redux/profile-rediser';
 import Profile from './Profile';
-import { Redirect } from 'react-router-dom';
 import withAuthRedirect from '../hoc/withAuthRedirect';
+import { compose } from 'redux';
 
 
 
@@ -13,16 +13,19 @@ class  ProfileContainer extends React.Component {
     componentDidMount() {
         let userId = this.props.match.params.userId;
         if(!userId) {
-            userId = 2
+            userId = 9063
         }
  
-        this.props.getProfileThunkCreator(userId)
+        this.props.getProfileThunkCreator(userId);
+        this.props.getStatusThunkCreator(userId)
+        
       }
 
+      
         render() {
             return (
                 <div >
-                <Profile {...this.props} profile={this.props.profile}/>
+                <Profile {...this.props} profile={this.props.profile}  status={this.props.status} updateStatusThunkCreator={this.props.updateStatusThunkCreator}/>
             </div>
             );
         }
@@ -31,26 +34,17 @@ class  ProfileContainer extends React.Component {
 const mapStateToProps  = (state) => {
     return {
       profile: state.profilePage.profile,
+      status: state.profilePage.status,
     }
  }
 
-
-
-
-let AuthRedirectComponent = withAuthRedirect(ProfileContainer)
-
-const mapStateToPropsForRedirect  = (state) => {
-  return {
-    isAuth: state.auth.isAuth,
-  }
-}
-
-AuthRedirectComponent= connect(mapStateToPropsForRedirect)(AuthRedirectComponent)
-
-
-const WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)
-
-export default connect(mapStateToProps, {
+export default compose(
+  connect(mapStateToProps, {
     getProfileThunkCreator,
+    getStatusThunkCreator,
+    updateStatusThunkCreator,
     
-  })(WithUrlDataContainerComponent); 
+  }),
+  withRouter,
+  withAuthRedirect
+)(ProfileContainer)
