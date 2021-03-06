@@ -1,8 +1,10 @@
 .header {
     grid-area: header;
-    background-color: #2980b9;
+    background: linear-gradient(to right, #f85032, #e73827); 
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
   }
 
   .logo {
@@ -10,5 +12,35 @@
   }
 
   .loginBlock a{
+    color: red;
+    text-decoration: none;
+    background-color: white;
+    padding: 5px 10px;
+  }
+
+  .login {
       color: white;
   }
+
+  .login button {
+    color: red;
+    background-color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-left: 10px;
+}
+
+.login button:hover {
+    color: white;
+    background-color: red;
+    border: 1px solid white;
+    padding: 5px 10px;
+}
+
+.loginBlock a:hover {
+    color: white;
+    background-color: red;
+    border: 1px solid white;
+    padding: 5px 10px;
+}
+

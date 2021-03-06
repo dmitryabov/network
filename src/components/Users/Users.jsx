@@ -2,8 +2,6 @@ import React from 'react';
 import styles from './Users.module.css'
 import avatar from '../../img/avatar.jpeg';
 import { NavLink } from 'react-router-dom';
-import axios from 'axios';
-import { usersAPI } from '../../api/api';
 
 
 
@@ -16,8 +14,8 @@ const Users = (props) => {
         pages.push(i)
     }
     return (
-        <div>
-            <div>
+        <div className={styles.userContainer}>
+            <div className={styles.userPagination}>
                 {pages.map((page) => {
                   return <span className={props.currentPage === page ? styles.selectedPage : ''} key={page} onClick={() => {
                       props.onPageChanged(page)
@@ -27,7 +25,7 @@ const Users = (props) => {
             </div>
         
         {
-            props.users.map(user => <div key={user.id }>
+            props.users.map(user => <div key={user.id } className={styles.user}>
                 <span>
                     <div>
                         <NavLink to={`/profile/` + user.id}>
@@ -36,17 +34,17 @@ const Users = (props) => {
                         
                     </div>
                     <div>
-                        {user.followed ? <button disabled={props.isFollowingInProgress.some(id => id === user.id)} onClick={ () => {
+                        {user.followed ? <button className={styles.btn} disabled={props.isFollowingInProgress.some(id => id === user.id)} onClick={ () => {
                             props.followThunkCreator(user.id)
                             
                         }}>unfollow</button> :
-                         <button disabled={props.isFollowingInProgress.some(id => id === user.id)} onClick={() => {
+                         <div className={`${styles.btn} + ' ' + ${styles.btnFollow}`} disabled={props.isFollowingInProgress.some(id => id === user.id)} onClick={() => {
                             props.unfollowThunkCreator(user.id)
-                        }}>follow</button>}
+                        }}>follow</div>}
                        
                     </div>
                 </span>
-                <span>
+                <span className={styles.userInfo}>
                     <span>
                         <div>
                             <span>

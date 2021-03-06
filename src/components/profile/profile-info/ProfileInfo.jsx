@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './ProfileInfo.module.css';
 import panoramaLogo from '../../../img/panorama.jpeg';
 import Preloader from '../../common/preloader/Preloader';
-import ProfileStatus from './ProfileStatus';
+import ProfileStatusHooks from './ProfileStatusHooks';
 
 
 
@@ -13,12 +13,9 @@ const  ProfileInfo = (props) => {
 
   return (
       <div className={classes.profileInfo}>
-        <div>
-           <img className={classes.profileImg} src={panoramaLogo}></img>
-        </div>
         <div className={classes.descriptionBlock}>
           <img src={props.profile.photos.large} />
-          <ProfileStatus status={props.status} updateStatusThunkCreator={props.updateStatusThunkCreator}/>
+            <ProfileStatusHooks status={props.status} updateStatusThunkCreator={props.updateStatusThunkCreator}/>
           </div>
       </div>
   );

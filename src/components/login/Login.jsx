@@ -6,31 +6,24 @@ import { loginThunkCreator } from '../../redux/auth-rediser';
 import { required } from '../../utils/validators/validators';
 import { Input } from '../common/preloader/formsControl/FormsConrol';
 import style from '../common/preloader/formsControl/FormsConrol.module.css'
+import styles from './Login.module.css'
 
 
 const LoginForm = (props) => {
   
   return (
-      <form onSubmit={props.handleSubmit}>
-        <div>
-          <Field placeholder={'Email'} name={'email'} component={Input}
-             validate={[required]}
-          />
-        </div>
-        <div>
-          <Field placeholder={'Password'} name={'password'} type={'password'} component={Input} validate={[required]}/>
-        </div>
-        <div>
-          <Field type={'checkbox'} name={'remember'} component={Input} validate={[required]}/> remember me
-        </div>
-        {props.error && <div className={style.formError}>
-            {props.error}
-        </div>}
-       
-        <div>
-          <button>Login</button>
-        </div>
-      </form>
+          <form className={styles.form} id={styles.form1} onSubmit={props.handleSubmit}>
+            <Field placeholder={'Email'} name={'email'} component={Input}validate={[required]} className={styles.formField}/>
+            <Field placeholder={'Password'} name={'password'} type={'password'} component={Input} validate={[required]} className={styles.formField}/>
+            <div className={styles.remember}>
+              <Field type={'checkbox'} name={'remember'} component={Input} validate={[required]} className={styles.formField}/>
+              <span>remember</span>
+            </div>
+            {props.error && <div className={style.formError}>{props.error} </div>}
+            <div>
+             <button className={styles.loginButton}>Login</button>
+           </div>
+          </form>
   );
 }
 
@@ -50,9 +43,15 @@ const  Login = (props) => {
   }
 
    return (
-    <div>
-      <div>Login</div>
-      <LoginFormRedux onSubmit={onSubmit} />
+    <div className={styles.login}>
+      <div className={styles.loginForm}>
+      <div className={styles.formTitle}>
+          Login
+      </div>
+      <div>
+       <LoginFormRedux onSubmit={onSubmit} />
+      </div>
+     </div>
      </div>
   );
 }
