@@ -1,12 +1,8 @@
 import React from 'react';
 import classes from './ProfileInfo.module.css';
-import panoramaLogo from '../../../img/panorama.jpeg';
-import Preloader from '../../common/preloader/Preloader';
-
 
 
 class  ProfileStatus extends React.Component {
-
         state = {
             edinMode: false,
             status: this.props.status
@@ -43,7 +39,7 @@ class  ProfileStatus extends React.Component {
                 <div>
                     {!this.state.edinMode && 
                         <div>
-                            <span onDoubleClick={this.activateEditMode} >{this.props.status || '----'}</span>
+                           status:  <span onDoubleClick={this.activateEditMode} >  {this.props.status || '----'}</span>
                         </div>
                     }
                     {this.state.edinMode && 

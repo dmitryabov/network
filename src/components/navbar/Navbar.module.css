@@ -1,7 +1,8 @@
 .nav {
   grid-area: nav;
   max-width: 230px;
-  background:#2980b9;
+  background: linear-gradient(to right, #f85032, #e73827); 
+  height: 1300px;
 }
 
 .itemLink.active {
@@ -13,7 +14,7 @@
 
 .item {
   display: flex;
-  background:#2980b9;
+  background: linear-gradient(to right, #f85032, #e73827); 
   color:#fff;
   border:none;
   position:relative;
@@ -31,7 +32,7 @@
 }
 
 .item:hover .itemLink{
-  color:#2980b9;
+  color: #f85032
 }
 
 .item:before, .item:after{
@@ -41,7 +42,7 @@
   right:0;
   height:2px;
   width:0;
-  background: #2980b9;
+  background: linear-gradient(to right, #f85032, #e73827); 
   transition:400ms ease all;
 }
 
