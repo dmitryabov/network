@@ -1,0 +1,90 @@
+.ava {
+    height: 60px;
+    border-radius: 50%;
+}
+
+.selectedPage {
+    font-weight: bold;
+}
+
+.userContainer{
+    padding: 20px;
+}
+
+.userPagination {
+    padding-bottom: 30px;
+}
+
+.user {
+    padding: 30px;
+    position: relative;
+    display: flex;
+    margin-bottom: 50px;
+    background-image: white;
+    width: 200px;
+    height: 100px;
+    border-radius: 5px;
+    box-shadow: 1px 0px 25px 7px rgba(34, 60, 80, 0.23);
+
+
+}
+
+.userInfo {
+    padding: 10px;
+    
+}
+
+.btn{
+  color:#e73827;
+  font-size:20px;
+  background:transparent;
+  cursor:pointer;
+  border:1px solid #e73827;
+  width:100px;
+  height:25px;
+  position:absolute;
+  left: 80px;
+  top: 130px;
+  text-align:center;
+  -webkit-transform:translate(-50%,-50%);
+  transform:translate(-50%,-50%);
+   -webkit-transition:all .6s ease-in-out;
+  transition:all .6s ease-in-out;
+ overflow:hidden;
+}
+
+
+.btn::before{
+  content:'';
+  position:absolute;
+  top:-130px;
+  margin:auto;
+  display:block;
+  border-radius:50%;
+  width:300px;
+  height:300px;
+  left:-75px;
+  -webkit-transition:box-shadow .6s ease-in-out;
+  transition:box-shadow .6s ease-in-out;
+  z-index:-1;
+}
+
+.btn:hover{
+  color:#fff;
+}
+
+
+.btn:hover::before{
+  box-shadow:inset 0 0 0 160px #e73827;
+}
+
+.btnFollow {
+    color: green;
+    border:1px solid green;
+}
+
+.btnFollow:hover::before{
+    box-shadow:inset 0 0 0 160px green;
+  }
+
+
