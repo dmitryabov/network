@@ -10,17 +10,14 @@ import { getPageSize, getUsers,  getTotalUsersCount, getiisFollowingInProgres, g
 class UsersApiContainer extends React.Component {
 
   componentDidMount() {
-
-    this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
-    
+    const {getUsersThunkCreator, currentPage, pageSize} = this.props
+    getUsersThunkCreator(currentPage, pageSize)
   }
 
 
   onPageChanged = (page) => {
-    
       this.props.setCurrentPage(page);
       this.props.getUsersThunkCreator(page, this.props.pageSize)
-     
   }
  
 
@@ -45,17 +42,6 @@ render () {
 }
 }
 
-// const mapStateToProps  = (state) => {
-//   return {
-//     users: state.usersPage.users,
-//     pageSize: state.usersPage.pageSize,
-//     totalUsersCount: state.usersPage.totalUsersCount,
-//     currentPage: state.usersPage.currentPage,
-//     isFetching: state.usersPage.isFetching,
-//     isFollowingInProgress: state.usersPage.isFollowingInProgress
-//   }
-// }
-
 
 const mapStateToProps  = (state) => {
   return {
@@ -70,9 +56,9 @@ const mapStateToProps  = (state) => {
 
 
 const UsersContainer = connect(mapStateToProps, {
-  follow: follow,
-  unfollow: unfollow,
-  setCurrentPage: setCurrentPage,
+  follow,
+  unfollow,
+  setCurrentPage,
   setToggleFollowing,
   getUsersThunkCreator,
   followThunkCreator,

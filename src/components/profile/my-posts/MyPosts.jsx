@@ -49,4 +49,4 @@ const AddNewPostForm = (props) => {
 
 const AddNewPostFormRedux = reduxForm({form: 'ProfileAddNewPostForm'})(AddNewPostForm)
 
-export default MyPosts;
+export default React.memo(MyPosts) ;

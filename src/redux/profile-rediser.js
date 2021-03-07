@@ -6,7 +6,7 @@ const SET_USERS_PROFILE = 'SET_USERS_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 
 const initialState = {
-  posts: [],
+  posts: [{ message: 'asd', likesCount: 1 }],
   newPostText: 'add text',
   profile: null,
   status: '',
@@ -54,32 +54,23 @@ export const setUserProfileStatus = (status) => {
   };
 };
 
-export const getProfileThunkCreator = (userId) => {
-  return (dispatch) => {
-    dispatch(setToggleFetching(true));
-    usersAPI.getProfile(userId).then((data) => {
-      dispatch(setUserProfile(data));
-    });
-  };
+export const getProfileThunkCreator = (userId) => async (dispatch) => {
+  dispatch(setToggleFetching(true));
+  let data = await usersAPI.getProfile(userId);
+  dispatch(setUserProfile(data));
 };
 
-export const getStatusThunkCreator = (userId) => {
-  return (dispatch) => {
-    dispatch(setToggleFetching(true));
-    profileAPI.getStatus(userId).then((data) => {
-      dispatch(setUserProfileStatus(data));
-    });
-  };
+export const getStatusThunkCreator = (userId) => async (dispatch) => {
+  dispatch(setToggleFetching(true));
+  let data = await profileAPI.getStatus(userId);
+  dispatch(setUserProfileStatus(data));
 };
 
-export const updateStatusThunkCreator = (status) => {
-  return (dispatch) => {
-    profileAPI.updateStatus(status).then((response) => {
-      if (response.data.resultCode === 0) {
-        dispatch(setUserProfileStatus(status));
-      }
-    });
-  };
+export const updateStatusThunkCreator = (status) => async (dispatch) => {
+  let response = await profileAPI.updateStatus(status);
+  if (response.data.resultCode === 0) {
+    dispatch(setUserProfileStatus(status));
+  }
 };
 
 export default profileReduser;

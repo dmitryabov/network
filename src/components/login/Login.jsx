@@ -9,17 +9,17 @@ import style from '../common/preloader/formsControl/FormsConrol.module.css'
 import styles from './Login.module.css'
 
 
-const LoginForm = (props) => {
+const LoginForm = ({handleSubmit, error}) => {
   
   return (
-          <form className={styles.form} id={styles.form1} onSubmit={props.handleSubmit}>
+          <form className={styles.form} id={styles.form1} onSubmit={handleSubmit}>
             <Field placeholder={'Email'} name={'email'} component={Input}validate={[required]} className={styles.formField}/>
             <Field placeholder={'Password'} name={'password'} type={'password'} component={Input} validate={[required]} className={styles.formField}/>
             <div className={styles.remember}>
-              <Field type={'checkbox'} name={'remember'} component={Input} validate={[required]} className={styles.formField}/>
+              <Field type={'checkbox'} name={'remember'} component={Input} validate={[]} className={styles.formField}/>
               <span>remember</span>
             </div>
-            {props.error && <div className={style.formError}>{props.error} </div>}
+            {error && <div className={style.formError}>{error} </div>}
             <div>
              <button className={styles.loginButton}>Login</button>
            </div>
@@ -32,13 +32,13 @@ const LoginFormRedux = reduxForm({
   form: 'login'
 })(LoginForm)
 
-const  Login = (props) => {
+const  Login = ({loginThunkCreator, isAuth}) => {
   
   const onSubmit = (formData) => {
-    props.loginThunkCreator(formData.email, formData.password, formData.remember)
+    loginThunkCreator(formData.email, formData.password, formData.remember)
   }
   
-  if(props.isAuth){
+  if(isAuth){
     return <Redirect to={'/profile'}/>
   }
 
