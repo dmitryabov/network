@@ -3,14 +3,21 @@ import { authAPI } from '../api/api';
 
 const SET_USER_DATA = 'auth/SET_USER_DATA';
 
-const initialState = {
+export type initialStateType = {
+  id: number | null;
+  email: string | null;
+  login: string | null;
+  isAuth: boolean;
+};
+
+const initialState: initialStateType = {
   id: null,
   email: null,
   login: null,
   isAuth: false,
 };
 
-const authReduser = (state = initialState, action) => {
+const authReduser = (state = initialState, action: any): initialStateType => {
   switch (action.type) {
     case SET_USER_DATA:
       return {
@@ -22,14 +29,31 @@ const authReduser = (state = initialState, action) => {
   }
 };
 
-export const setAuthUserData = (id, email, login, isAuth) => {
+export type SetAuthUserPayloadType = {
+  id: number | null;
+  email: string | null;
+  login: string | null;
+  isAuth: boolean;
+};
+
+export type SetAuthUserDataActionType = {
+  type: typeof SET_USER_DATA;
+  payload: SetAuthUserPayloadType;
+};
+
+export const setAuthUserData = (
+  id: number | null,
+  email: string | null,
+  login: string | null,
+  isAuth: boolean
+): SetAuthUserDataActionType => {
   return {
     type: SET_USER_DATA,
     payload: { id, email, login, isAuth },
   };
 };
 
-export const setAuthThunkCreator = () => async (dispatch) => {
+export const setAuthThunkCreator = () => async (dispatch: any) => {
   let data = await authAPI.me();
 
   if (data.resultCode === 0) {
@@ -38,9 +62,11 @@ export const setAuthThunkCreator = () => async (dispatch) => {
   }
 };
 
-export const loginThunkCreator = (email, password, rememberMe) => async (
-  dispatch
-) => {
+export const loginThunkCreator = (
+  email: string,
+  password: string,
+  rememberMe: boolean
+) => async (dispatch: any) => {
   let data = await authAPI.login(email, password, rememberMe);
   if (data.resultCode === 0) {
     dispatch(setAuthThunkCreator);
@@ -50,8 +76,9 @@ export const loginThunkCreator = (email, password, rememberMe) => async (
   }
 };
 
-export const logoutThunkCreator = () => async (dispatch) => {
+export const logoutThunkCreator = () => async (dispatch: any) => {
   let data = await authAPI.logout();
+  //@ts-ignore
   if (data.resultCode === 0) {
     dispatch(setAuthThunkCreator);
     dispatch(setAuthUserData(null, null, null, false));
